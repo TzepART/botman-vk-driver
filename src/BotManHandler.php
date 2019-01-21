@@ -75,7 +75,7 @@ class BotManHandler
     {
         $botman = $this->getBotman();
 
-        $botman->hears('.*', function (BotMan $bot) {
+        $botman->hears('.*', function (BotMan $bot) use ($conversation) {
             $bot->startConversation($conversation);
         });
 
