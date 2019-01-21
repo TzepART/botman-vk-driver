@@ -11,6 +11,7 @@ use BotMan\BotMan\Cache\SymfonyCache;
 use BotMan\BotMan\Drivers\DriverManager;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\Request;
+use VkBotMan\Model\AbstractConversation;
 
 /**
  * Class BotManHandler
@@ -70,12 +71,12 @@ class BotManHandler
     /**
      *
      */
-    public function attachConversation()
+    public function attachConversation(AbstractConversation $conversation)
     {
         $botman = $this->getBotman();
 
         $botman->hears('.*', function (BotMan $bot) {
-            $bot->startConversation(new EntryPointConversation());
+            $bot->startConversation($conversation);
         });
 
         $botman->listen();
