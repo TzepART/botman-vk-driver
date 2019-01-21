@@ -14,7 +14,10 @@
     ],
     "require": {
         "php": ">=7.0",
-        "botman/botman": "^2.4"
+        "botman/botman": "^2.4",
+        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/support": "^5.7",
+        "symfony/cache": "^4.2"
     },
     "autoload": {
         "psr-4": {
