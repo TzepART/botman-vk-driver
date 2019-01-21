@@ -67,46 +67,10 @@ EOL
         );
 
         $this->bot->typesAndWaits(4);
-        $this->bot->startConversation(new PromoRulesConversation());
     }
 
     public function run()
     {
-        $forceMode = false;
-
-        if (self::FORCE_MODE_TEXT === $this->getBot()->getMessage()->getText()) {
-            $forceMode = true;
-        }
-
-        // --
-
-        $em = $this->getEntityManager();
-        $userId = $this->getBot()->getUser()->getId();
-
-        // --
-
-        $user = $em
-            ->getRepository(User::class)
-            ->findOneBy([
-                'uid' => $userId
-            ]);
-
-        if ($user instanceof User) {
-
-            if (true === $forceMode) {
-                $user->setBotActive(true);
-
-                $em->persist($user);
-                $em->flush();
-            }
-
-            if (false === $user->getBotActive()) {
-                return true;
-            }
-        }
-
-        // --
-
         $convers = $this->getBot()->userStorage()->get('convers');
 
         if (null !== $convers) {
@@ -115,5 +79,7 @@ EOL
         } else {
             return $this->entryPoint();
         }
+
+        return true;
     }
 }
