@@ -9,30 +9,34 @@ use VkBotMan\Drivers\VkAttachmentDriver;
 use VkBotMan\Drivers\VkDriver;
 use BotMan\BotMan\Cache\SymfonyCache;
 use BotMan\BotMan\Drivers\DriverManager;
-use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
-use Sonata\CoreBundle\Model\ManagerInterface;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class BotManHandler
+ * @package VkBotMan
+ */
 class BotManHandler
 {
-    private $logger;
-    private $entityManager;
-    private $mediaManager;
+    /**
+     * @var Request
+     */
     private $request;
+
+    /**
+     * @var VkApiHandler
+     */
     private $vkApiHandler;
 
+    /**
+     * BotManHandler constructor.
+     * @param Request $request
+     * @param VkApiHandler $vkApiHandler
+     */
     public function __construct(
-        LoggerInterface $logger,
-        ManagerInterface $mediaManager,
-        EntityManagerInterface $entityManager,
         Request $request,
         VkApiHandler $vkApiHandler)
     {
-        $this->logger = $logger;
-        $this->mediaManager = $mediaManager;
-        $this->entityManager = $entityManager;
         $this->request = $request;
         $this->vkApiHandler = $vkApiHandler;
     }
@@ -55,9 +59,6 @@ class BotManHandler
         ];
 
         $factory = new BotManFactory(
-            $this->entityManager,
-            $this->mediaManager,
-            $this->logger,
             $this->vkApiHandler
         );
 
@@ -66,6 +67,9 @@ class BotManHandler
         return $botman;
     }
 
+    /**
+     *
+     */
     public function attachConversation()
     {
         $botman = $this->getBotman();
