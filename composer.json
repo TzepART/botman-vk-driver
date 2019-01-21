@@ -1,0 +1,24 @@
+{
+    "name": "tzepart/botman-vk-driver",
+    "license": "MIT",
+    "description": "",
+    "keywords": [
+        "BotMan",
+        "Vk"
+    ],
+    "authors": [
+        {
+            "name": "Tsepkov Artem",
+            "email": "tzepart@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "botman/botman": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "VkBotMan\\": "src/"
+        }
+    }
+}
