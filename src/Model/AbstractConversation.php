@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VkBotMan\Conversation;
+namespace VkBotMan\Model;
 
 
 use VkBotMan\BotMan;
