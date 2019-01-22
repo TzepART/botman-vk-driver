@@ -15,8 +15,6 @@ use BotMan\BotMan\Messages\Incoming\IncomingMessage;
  */
 abstract class AbstractConversation extends Conversation
 {
-    const MISUNDERSTANDING_ERROR = '&#128161;Ответь «да» или «нет» или используй нужные кнопки на клавиатуре Вконтакте.';
-
     /**
      * @var BotMan
      */
@@ -39,12 +37,7 @@ abstract class AbstractConversation extends Conversation
         $this->turnOffBot();
 
         $this
-            ->say(<<<EOL
-Хорошо, ты можешь задать вопрос администратору группы Wella.
-А если захочешь принять участие в акции, напиши в этот чат сообщение с текстом
-/promo
-EOL
-)
+            ->say($this->getReturnToHumanModeMessage())
             ->stopsConversation(new IncomingMessage('', '', ''));
     }
 
@@ -77,4 +70,9 @@ EOL
     {
         return $this->bot->getVkApiHandler();
     }
+
+    /**
+     * @return string
+     */
+    abstract protected function getReturnToHumanModeMessage() : string;
 }
