@@ -22,6 +22,7 @@ class VkApiHandler
 
         $client = new Client();
 
+        //TODO parms in config
         try {
             $response = $client->get('https://api.vk.com/method/groups.isMember', [
                 'query' => [
