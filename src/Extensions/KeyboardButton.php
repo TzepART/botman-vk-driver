@@ -106,13 +106,5 @@ class KeyboardButton implements \JsonSerializable, QuestionActionInterface
     public function jsonSerialize()
     {
         return json_encode($this->toArray());
-
-//        return Collection::make([
-//            'url' => $this->url,
-//            'callback_data' => $this->callbackData,
-//            'request_contact' => $this->requestContact,
-//            'request_location' => $this->requestLocation,
-//            'text' => $this->text,
-//        ])->filter()->toArray();
     }
 }

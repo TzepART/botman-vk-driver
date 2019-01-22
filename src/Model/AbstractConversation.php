@@ -9,6 +9,10 @@ use VkBotMan\VkApiHandler;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
+/**
+ * Class AbstractConversation
+ * @package VkBotMan\Model
+ */
 abstract class AbstractConversation extends Conversation
 {
     const MISUNDERSTANDING_ERROR = '&#128161;Ответь «да» или «нет» или используй нужные кнопки на клавиатуре Вконтакте.';
@@ -18,11 +22,17 @@ abstract class AbstractConversation extends Conversation
      */
     protected $bot;
 
+    /**
+     *
+     */
     protected function retry()
     {
         $this->bot->startConversation(new $this);
     }
 
+    /**
+     *
+     */
     public function returnToHumanMode()
     {
         $this->getBot()->typesAndWaits(2);
@@ -38,11 +48,17 @@ EOL
             ->stopsConversation(new IncomingMessage('', '', ''));
     }
 
+    /**
+     *
+     */
     public function turnOffBot()
     {
         // TODO do something
     }
 
+    /**
+     * @param null $classname
+     */
     public function saveConversationState($classname = null)
     {
         $conversation = static::class;
