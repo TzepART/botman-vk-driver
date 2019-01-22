@@ -19,7 +19,8 @@
         "botman/botman": "^2.4",
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/support": "^5.7",
-        "symfony/cache": "~3.4|~4.0"
+        "symfony/cache": "~3.4|~4.0",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {

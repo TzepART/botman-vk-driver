@@ -4,7 +4,6 @@
 namespace VkBotMan;
 
 
-use VkBotMan\Conversation\EntryPointConversation;
 use VkBotMan\Drivers\VkAttachmentDriver;
 use VkBotMan\Drivers\VkDriver;
 use BotMan\BotMan\Cache\SymfonyCache;
@@ -50,6 +49,7 @@ class BotManHandler
         DriverManager::loadDriver(VkDriver::class);
         DriverManager::loadDriver(VkAttachmentDriver::class);
 
+        //TODO cache DIR in config
         $adapter = new FilesystemAdapter('', 0, __DIR__ . '/../var/botman/conversations');
 
         $config = [
@@ -68,8 +68,9 @@ class BotManHandler
         return $botman;
     }
 
+
     /**
-     *
+     * @param AbstractConversation $conversation
      */
     public function attachConversation(AbstractConversation $conversation)
     {
