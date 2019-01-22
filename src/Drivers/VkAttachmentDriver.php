@@ -8,8 +8,15 @@ use BotMan\BotMan\Messages\Attachments\File;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Incoming\IncomingMessage;
 
+/**
+ * Class VkAttachmentDriver
+ * @package VkBotMan\Drivers
+ */
 class VkAttachmentDriver extends VkDriver
 {
+    /**
+     * @return bool
+     */
     public function matchesRequest()
     {
         $attachments = $this->event->get('attachments');
@@ -43,6 +50,9 @@ class VkAttachmentDriver extends VkDriver
         return $this->messages;
     }
 
+    /**
+     *
+     */
     public function loadMessages()
     {
         $message = null;
@@ -69,6 +79,9 @@ class VkAttachmentDriver extends VkDriver
         }
     }
 
+    /**
+     * @return array
+     */
     private function getAttachments()
     {
         $attachments = $this->event->get('attachments');
