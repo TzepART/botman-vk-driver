@@ -1,8 +1,8 @@
 # Botman VK-driver
 
-(Packagist link)[https://packagist.org/packages/tzepart/botman-vk-driver]
+[Packagist link](https://packagist.org/packages/tzepart/botman-vk-driver)
 
-Driver for (Botman library)[https://botman.io/]
+Driver for [Botman library](https://botman.io/)
 
 Example Conversation Class
 
