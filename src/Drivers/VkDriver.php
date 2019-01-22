@@ -16,8 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 
+/**
+ * Class VkDriver
+ * @package VkBotMan\Drivers
+ */
 class VkDriver extends HttpDriver
 {
+    // TODO make config parameters from those const-s
     const DRIVER_NAME = 'Vk';
     const API_VERSION = '5.85';
     const API_URL = 'https://api.vk.com/method/';
@@ -29,12 +34,18 @@ class VkDriver extends HttpDriver
         'message_edit',
         'message_new',
     ];
+    /**
+     * @var string
+     */
     protected $endpoint = 'messages.send';
     /**
      * @var array
      */
     protected $messages = [];
-    /** @var Collection */
+
+    /**
+     * @var Collection
+     */
     protected $queryParameters;
 
     /**
@@ -46,13 +57,9 @@ class VkDriver extends HttpDriver
     {
         if (!is_null($this->event->get('text')) && count($this->event->get('attachments')) === 0) {
             return true;
+        } else {
+            return false;
         }
-
-//        return !is_null($this->payload->get('type')) ||
-//            !is_null($this->payload->get('object')) &&
-//            !is_null($this->payload->get('group_id')) &&
-//            !is_null($this->event->get('text')) &&
-//            count($this->event->get('attachments')) === 0;
     }
 
     /**
@@ -61,12 +68,14 @@ class VkDriver extends HttpDriver
      */
     public function types(IncomingMessage $matchingMessage)
     {
+        //TODO VK_GROUP_ACCESS_TOKEN in config
         $parameters = [
             'type' => 'typing',
             'peer_id' => $matchingMessage->getSender(),
             'access_token' => getenv('VK_GROUP_ACCESS_TOKEN'),
             'v' => self::API_VERSION,
         ];
+
         return $this->http->post($this->buildApiUrl('messages.setActivity'), [], $parameters);
     }
 
@@ -110,24 +119,6 @@ class VkDriver extends HttpDriver
      */
     public function getUser(IncomingMessage $matchingMessage)
     {
-//        $response = $this->sendRequest('users.get', [
-//            'user_ids' => $matchingMessage->getSender(),
-//            'fields' => 'screen_name',
-//        ], $matchingMessage);
-
-//        if (!$response && !$response->isOk())
-//            throw new VkException('Error get user info.');
-
-//        $responseData = json_decode($response->getContent(), true);
-//        $profileData = array_get($responseData, 'response.0');
-//        $id = array_get($profileData, 'id', null);
-//        $firstName = array_get($profileData, 'first_name', null);
-//        $lastName = array_get($profileData, 'last_name', null);
-//        $userName = array_get($profileData, 'screen_name', null);
-//        if ($userName === null) {
-//            $userName = strlen(trim($firstName . $lastName)) > 0 ? trim($firstName . $lastName) : $id;
-//        }
-
         return new User($matchingMessage->getSender());
     }
 
@@ -163,6 +154,7 @@ class VkDriver extends HttpDriver
      */
     public function buildServicePayload($message, $matchingMessage, $additionalParameters = [])
     {
+        //TODO VK_GROUP_ACCESS_TOKEN in config
         $parameters = array_merge_recursive([
             'peer_id' => $matchingMessage->getSender(),
             'access_token' => getenv('VK_GROUP_ACCESS_TOKEN'),
@@ -216,10 +208,6 @@ class VkDriver extends HttpDriver
     {
         $response = $this->http->post($this->buildApiUrl($this->endpoint), [], $payload);
 
-        
-//        $response->setContent('ok');
-
-//        $this->throwExceptionIfResponseNotOk($response);
         return $response;
     }
 
@@ -264,6 +252,7 @@ class VkDriver extends HttpDriver
         ], $parameters);
 
         $response = $this->http->post($this->buildApiUrl($endpoint), [], $parameters);
+
         return $response;
     }
 }
