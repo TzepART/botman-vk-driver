@@ -1,7 +1,5 @@
 # Botman VK-driver
 
-[Packagist link](https://packagist.org/packages/tzepart/botman-vk-driver)
-
 Driver for [Botman library](https://botman.io/)
 
 Example Conversation Class
@@ -55,3 +53,5 @@ class VkController extends AbstractController
 }
 
 ```
+
+[Packagist link](https://packagist.org/packages/tzepart/botman-vk-driver)
