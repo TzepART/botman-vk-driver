@@ -79,7 +79,17 @@ class Keyboard
      */
     public function addRow(KeyboardButton ...$buttons)
     {
-        $this->rows[] = $buttons;
+        $buttons = json_decode(json_encode($buttons), true);
+        foreach($buttons as $key=>$button) {
+            $buttons[$key] = json_decode($button, true);
+        }
+
+        foreach($buttons as $key=>$item) {
+            $buttons[$key]['action']['payload'] = ($item['action']['payload']);
+            unset($buttons[$key]['additional']);
+        }
+
+        $this->rows[] = Collection::make($buttons);
 
         return $this;
     }
