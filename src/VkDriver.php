@@ -219,7 +219,12 @@ class VkDriver extends HttpDriver implements VerifiesService
     public function buildPayload(Request $request)
     {
         $this->payload = new ParameterBag((array) json_decode($request->getContent(), true));
-        $this->event = Collection::make($this->payload->get('object'));
+        $object = $this->payload->get('object');
+        if( isset($object['message']) ) {
+            $this->event = Collection::make($object['message']);
+        } else {
+            $this->event = Collection::make($object);
+        }
         $this->config = Collection::make($this->config->get('vk'));
         $this->queryParameters = Collection::make($request->query);
         $this->content = $request->getContent();
