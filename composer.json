@@ -15,6 +15,7 @@
         }
     ],
     "version": "1.0",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=7.0",
         "botman/botman": "^2.4",
