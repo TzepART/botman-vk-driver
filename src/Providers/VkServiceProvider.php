@@ -1,6 +1,6 @@
 <?php
 
-namespace BotMan\Drivers\VK\Providers;
+namespace BotMan\Drivers\Vk\Providers;
 
 use BotMan\Drivers\VK\VkDriver;
 use Illuminate\Support\ServiceProvider;

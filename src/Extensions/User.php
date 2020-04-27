@@ -1,6 +1,6 @@
 <?php
 
-namespace BotMan\Drivers\VK\Extensions;
+namespace BotMan\Drivers\Vk\Extensions;
 
 use BotMan\BotMan\Interfaces\UserInterface;
 use BotMan\BotMan\Users\User as BotManUser;

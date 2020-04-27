@@ -1,6 +1,6 @@
 <?php
 
-namespace BotMan\Drivers\VK\Exceptions;
+namespace BotMan\Drivers\Vk\Exceptions;
 
 use BotMan\BotMan\Exceptions\Base\DriverException;
 

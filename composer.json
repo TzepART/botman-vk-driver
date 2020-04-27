@@ -25,13 +25,13 @@
     },
     "autoload": {
         "psr-4": {
-            "BotMan\\Drivers\\VK\\": "src/"
+            "BotMan\\Drivers\\Vk\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "BotMan\\Drivers\\VK\\Providers\\VkServiceProvider"
+                "BotMan\\Drivers\\Vk\\Providers\\VkServiceProvider"
             ]
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace VkBotMan\Extensions;
+namespace BotMan\Drivers\Vk\Extensions;
 
 
 use Illuminate\Support\Collection;

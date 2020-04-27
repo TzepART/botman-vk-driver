@@ -1,16 +1,16 @@
 <?php
 
-namespace BotMan\Drivers\VK;
+namespace BotMan\Drivers\Vk;
 
 use BotMan\BotMan\Interfaces\UserInterface;
-use BotMan\Drivers\VK\Extensions\User;
+use BotMan\Drivers\Vk\Extensions\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use BotMan\BotMan\Drivers\HttpDriver;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Interfaces\VerifiesService;
-use BotMan\Drivers\VK\Exceptions\VkException;
+use BotMan\Drivers\Vk\Exceptions\VkException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -22,7 +22,7 @@ class VkDriver extends HttpDriver implements VerifiesService
     const DRIVER_NAME = 'Vk';
 
     const API_VERSION = '5.103';
-    const API_URL = 'https://api.vk.com/method/';
+    const API_URL = 'https://api.Vk.com/method/';
 
     const CONFIRMATION_EVENT = 'confirmation';
     const MESSAGE_EDIT_EVENT = 'message_edit';
@@ -220,7 +220,7 @@ class VkDriver extends HttpDriver implements VerifiesService
     {
         $this->payload = new ParameterBag((array) json_decode($request->getContent(), true));
         $this->event = Collection::make($this->payload->get('object'));
-        $this->config = Collection::make($this->config->get('vk'));
+        $this->config = Collection::make($this->config->get('Vk'));
         $this->queryParameters = Collection::make($request->query);
         $this->content = $request->getContent();
     }
