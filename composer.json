@@ -1,8 +1,8 @@
 {
-    "name": "tzepart/botman-vk-driver",
+    "name": "danil005/botman-vk-driver",
     "type": "library",
     "license": "MIT",
-    "homepage": "https://github.com/TzepART/botman-vk-driver",
+    "homepage": "https://github.com/Danil005/botman-vk-driver",
     "description": "Vk driver for BotMan",
     "keywords": [
         "BotMan",
@@ -10,8 +10,8 @@
     ],
     "authors": [
         {
-            "name": "Tsepkov Artem",
-            "email": "tzepart@gmail.com"
+            "name": "Danil Sidorenko",
+            "email": "danilsidorenko00@gmail.com"
         }
     ],
     "require": {
@@ -20,11 +20,19 @@
         "guzzlehttp/guzzle": "^6.3",
         "illuminate/support": "^5.7",
         "symfony/cache": "~3.4|~4.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "botman/studio-addons": "~1.0"
     },
     "autoload": {
         "psr-4": {
-            "VkBotMan\\": "src/"
+            "BotMan\\Drivers\\Vk\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BotMan\\Drivers\\Vk\\Providers\\VkServiceProvider"
+            ]
         }
     }
 }
