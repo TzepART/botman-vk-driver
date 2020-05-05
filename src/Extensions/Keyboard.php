@@ -74,37 +74,27 @@ class Keyboard
 
     /**
      * Add a new row to the Keyboard.
-     * @param KeyboardButton[] $buttons
+     * @param KeyboardButton[]|array $buttons
      * @return Keyboard
      */
-    public function addRow(KeyboardButton ...$buttons)
+    public function addRow(...$buttons)
     {
         $buttons = json_decode(json_encode($buttons), true);
         foreach($buttons as $key=>$button) {
             $buttons[$key] = json_decode($button, true);
         }
-
-        foreach($buttons as $key=>$item) {
-            $buttons[$key]['action']['payload'] = ($item['action']['payload']);
-            unset($buttons[$key]['additional']);
-        }
-
-        $this->rows[] = Collection::make($buttons);
-
         return $this;
     }
 
     /**
-     * @return array
+     * @return false|string
      */
     public function toArray()
     {
-        return [
-            'reply_markup' => json_encode(Collection::make([
-                $this->type => $this->rows,
-                'one_time_keyboard' => $this->oneTimeKeyboard,
-                'resize_keyboard' => $this->resizeKeyboard,
-            ])->filter()),
-        ];
+        return json_encode(Collection::make([
+            'one_time' => $this->resizeKeyboard,
+            'buttons' => $this->rows,
+            'inline' => ($this->type == 'inline' ? true : false)
+        ])->filter());
     }
 }

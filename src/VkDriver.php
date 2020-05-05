@@ -268,8 +268,6 @@ class VkDriver extends HttpDriver implements VerifiesService
             $responseData = json_decode($response->getContent(), true);
             throw new VkException('Error sending payload: ' . $responseData);
         }
-
-        echo 'ok';
     }
 
     /**

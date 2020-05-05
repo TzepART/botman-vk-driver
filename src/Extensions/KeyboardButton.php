@@ -89,7 +89,7 @@ class KeyboardButton implements \JsonSerializable, QuestionActionInterface
         return [
             'action' => [
                 'type' => 'text',
-                'payload' => "{\"button\": \"{$this->value}\"}",
+                'payload' => (isset($this->value) ? "{\"button\": \"{$this->value}\"}" : ""),
                 'label' => $this->text,
             ],
             'color' => $this->color,
