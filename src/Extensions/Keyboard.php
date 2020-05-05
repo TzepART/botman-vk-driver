@@ -79,9 +79,33 @@ class Keyboard
      */
     public function addRow(...$buttons)
     {
-        $buttons = json_decode(json_encode($buttons), true);
-        foreach($buttons as $key=>$button) {
-            $buttons[$key] = json_decode($button, true);
+        if ($buttons[0] instanceof KeyboardButton) {
+            $buttons = json_decode(json_encode($buttons), true);
+            foreach ($buttons as $key => $button) {
+                $buttons[$key] = json_decode($button, true);
+            }
+
+            foreach ($buttons as $key => $item) {
+                $buttons[$key]['action']['payload'] = ($item['action']['payload']);
+                unset($buttons[$key]['additional']);
+            }
+
+            $this->rows[] = Collection::make($buttons);
+        } else {
+            $data = $buttons;
+            foreach($data as $datum=>$row) {
+                foreach ($row as $key=>$button) {
+                    $row[$key] = json_decode(json_decode(json_encode($button), true), true);
+                }
+
+                foreach ($row as $key=>$item) {
+                    unset($row[$key]['additional']);
+                }
+
+                $data[$datum] = $row;
+            }
+
+            array_push($this->rows, Collection::make($data[0]));
         }
         return $this;
     }
