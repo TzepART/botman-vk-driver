@@ -162,6 +162,7 @@ class VkDriver extends HttpDriver implements VerifiesService
             'user_id' => $matchingMessage->getSender(),
             'access_token' => $this->config->get('token'),
             'v' => self::API_VERSION,
+            'random_id' => rand(0, 100000000)
         ], $additionalParameters);
 
         if ($message instanceof Question) {
