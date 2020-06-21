@@ -1,6 +1,6 @@
 <?php
 
-namespace VkBotMan\Extensions;
+namespace BotMan\Drivers\Vk\Extensions;
 
 
 use Illuminate\Support\Collection;
@@ -74,27 +74,51 @@ class Keyboard
 
     /**
      * Add a new row to the Keyboard.
-     * @param KeyboardButton[] $buttons
+     * @param KeyboardButton[]|array $buttons
      * @return Keyboard
      */
-    public function addRow(KeyboardButton ...$buttons)
+    public function addRow(...$buttons)
     {
-        $this->rows[] = $buttons;
+        if ($buttons[0] instanceof KeyboardButton) {
+            $buttons = json_decode(json_encode($buttons), true);
+            foreach ($buttons as $key => $button) {
+                $buttons[$key] = json_decode($button, true);
+            }
 
+            foreach ($buttons as $key => $item) {
+                $buttons[$key]['action']['payload'] = ($item['action']['payload']);
+                unset($buttons[$key]['additional']);
+            }
+
+            $this->rows[] = Collection::make($buttons);
+        } else {
+            $data = $buttons;
+            foreach($data as $datum=>$row) {
+                foreach ($row as $key=>$button) {
+                    $row[$key] = json_decode(json_decode(json_encode($button), true), true);
+                }
+
+                foreach ($row as $key=>$item) {
+                    unset($row[$key]['additional']);
+                }
+
+                $data[$datum] = $row;
+            }
+
+            array_push($this->rows, Collection::make($data[0]));
+        }
         return $this;
     }
 
     /**
-     * @return array
+     * @return false|string
      */
     public function toArray()
     {
-        return [
-            'reply_markup' => json_encode(Collection::make([
-                $this->type => $this->rows,
-                'one_time_keyboard' => $this->oneTimeKeyboard,
-                'resize_keyboard' => $this->resizeKeyboard,
-            ])->filter()),
-        ];
+        return json_encode(Collection::make([
+            'one_time' => $this->resizeKeyboard,
+            'buttons' => $this->rows,
+            'inline' => ($this->type == 'inline' ? true : false)
+        ])->filter());
     }
 }
